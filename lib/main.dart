@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_first/provider/counter_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,15 +16,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHomePage(),
-    );
+      home: ChangeNotifierProvider(create: (_) => CounterProvider(),
+        child: MyHomePage(), // this is the home page of the app
+      ),
+    ); 
   }
 }
 
 
 class MyHomePage extends StatelessWidget {
- 
-  int _count=0; 
+  const MyHomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class MyHomePage extends StatelessWidget {
       title: Text('Home'),
     ),
     body: Center(
-      child: Text('$_count',style: TextStyle(
+      child: Text('${Provider.of<CounterProvider>(context,listen: true).getCount()}',style: TextStyle(
         fontSize: 25,
         color: Colors.red,
       ),),
@@ -38,7 +41,7 @@ class MyHomePage extends StatelessWidget {
     floatingActionButton: FloatingActionButton(
       onPressed: ()
       {
-        
+        Provider.of<CounterProvider>(context,listen: false).increment(); // Always listen false
       },
       child: Icon(Icons.add),
       ),
