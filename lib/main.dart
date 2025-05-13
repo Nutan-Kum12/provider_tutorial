@@ -39,12 +39,18 @@ class MyHomePage extends StatelessWidget {
       // this is the way to access the provider and when you use listen: true, it will rebuild the widget when the value changes
       // it rebuild the whole UI of your homepage but you have to change only the text for it we have to use consumer
       child: Consumer<CounterProvider>(
-        builder: (context, counterProvider, child) {
+        
+        builder: (ctx,counterProvider, __) {
           // in builder we passed three parameters context, counterProvider and child
-          // context is the build context of the widget
-          // counterProvider is the instance of the CounterProvider class
-          // child is the child widget that we can use to avoid rebuilding the widget
-          return Text('${counterProvider.getCount()}',
+           // context: the current BuildContext
+          // counterProvider: the current value from the provider
+         // child: an optional constant child widget to prevent rebuilds
+          print("Consumer called");
+          return Text(
+          '${counterProvider.getCount()}',
+          // '${ctx.watch<CounterProvider>().getCount()}',
+          // return Text(
+            //  '${Provider.of<CounterProvider>(ctx, listen: true).counter}',
           style: TextStyle(
             fontSize: 25,
             color: Colors.red,
