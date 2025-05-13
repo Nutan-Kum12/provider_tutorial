@@ -1,0 +1,7 @@
+Use read<T>() when you don’t want the widget to rebuild.  --->>>	Inside onPressed, initState, or logic functions
+
+Use watch<T>() when you want to rebuild the widget on changes. --->>>   Inside build() method or UI logic
+
+
+
+provider.method(...) is used when you're already inside a Consumer<ListMapProvider>.

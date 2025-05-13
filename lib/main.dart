@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_first/pages/add_data_page.dart';
+import 'package:provider_first/pages/list_page.dart';
 import 'package:provider_first/provider/counter_provider.dart';
+import 'package:provider_first/provider/list_map_provider.dart';
+
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ListMapProvider()),
+        ChangeNotifierProvider(create: (context) => CounterProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ChangeNotifierProvider(create: (_) => CounterProvider(),
-        child: MyHomePage(), // this is the home page of the app
-      ),
+      home: ListPage()
     ); 
   }
 }
@@ -58,13 +68,25 @@ class MyHomePage extends StatelessWidget {
         },
       ),
      ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: ()
-      {
-        Provider.of<CounterProvider>(context,listen: false).increment(); // Always listen false
-      },
-      child: Icon(Icons.add),
-      ),
+    floatingActionButton: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children:[
+         FloatingActionButton(
+        onPressed: ()
+        {
+          Provider.of<CounterProvider>(context,listen: false).increment(); // Always listen false
+        },
+        child: Icon(Icons.add),
+        ),
+         FloatingActionButton(
+        onPressed: ()
+        {
+          Provider.of<CounterProvider>(context,listen: false).decrement(); // Always listen false
+        },
+        child: Icon(Icons.remove),
+        ),
+      ]
+    ),
     );
   }
 }

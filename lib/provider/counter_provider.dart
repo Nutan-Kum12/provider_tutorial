@@ -6,7 +6,7 @@ class CounterProvider extends ChangeNotifier {
   int get counter => _counter; // this is a getter method to access the private variable
   int getCount()=> _counter; // this is a method to access the private variable
 
-  ///events
+  ////events
   void increment() {
     _counter++;
     notifyListeners();  // updates the UI
